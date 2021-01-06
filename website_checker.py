@@ -1,6 +1,6 @@
 # This is the main file
-import getScreenshot as gS
-import getHTMLhash as gHh
+import scripts.getScreenshot as gS
+import scripts.getHTMLhash as gHh
 import time
 import numpy as np
 from PIL import Image
@@ -11,7 +11,7 @@ names = ['ASUS RTX3070']
 urls = ['https://webshop.asus.com/de/komponenten/grafikkarten/rtx-30-serie/2955/asus-tuf-rtx3070-o8g-gaming']
 
 # Do some House-Keeping and set-up Browser
-check = gS.urlChecker(urls[0],names[0])
+check = gS.urlChecker(url = urls[0], name = names[0], x = 0, y = 800, width = 1080, height = 600)
 check.setUpBrowser()
 
 # First check if HTML changed
@@ -21,7 +21,6 @@ base_hash = hashObj.hash
 
 # Get reference picture from website
 check.getPicture('reference\site-ref.png') # Need to load the website 2 times ---> Otherwise the cookies pose to be a problem
-check.getPicture('reference\site-ref.png')
 base_pic = Image.open('reference\site-ref.png').convert('L')
 data_base = np.asarray(base_pic)
 base_val = np.sum(data_base)
