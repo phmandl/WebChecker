@@ -1,6 +1,6 @@
 import json
 import os
-import scripts.getScreenshot as gS
+import scripts.webPagePicChecker as gS
 import matplotlib.pyplot as plt
 
 # Default pic save location
@@ -42,7 +42,7 @@ def on_press(event):
 # Iterate over all websites to check
 for i,n in enumerate(name):
     # Get Browser to website
-    check = gS.urlChecker(url = url[i], name = name[i])
+    check = gS.webPagePicChecker(url = url[i], name = name[i])
     check.setUpBrowser()
 
     # Get a picture

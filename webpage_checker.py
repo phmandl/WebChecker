@@ -1,27 +1,37 @@
 # This is the main file
-import scripts.getScreenshot as gS
-import scripts.getHTMLhash as gHh
+import scripts.webPagePicChecker as gS
+import scripts.webPageHTMLChecker as gHh
+import json
 import time
 import numpy as np
 from PIL import Image
 from datetime import datetime
 
-# Define Site to watch
-names = ['ASUS RTX3070']
-urls = ['https://webshop.asus.com/de/komponenten/grafikkarten/rtx-30-serie/2955/asus-tuf-rtx3070-o8g-gaming']
+# Load Webpages and size to watch
+filename = 'websites.json'
+file_object  = open(filename, 'r')
+data = json.load(file_object)
+file_object.close()
+
+# Extract stuff
+name = data['name']
+url = data['url']
+area = data['checkArea']
+
+### IMPLEMENT PAGES
 
 # Do some House-Keeping and set-up Browser
-check = gS.urlChecker(url = urls[0], name = names[0], x = 0, y = 800, width = 1080, height = 600)
+check = gS.webPagePicChecker(url = url[0], name = name[0], x = 0, y = 800, width = 1080, height = 600)
 check.setUpBrowser()
 
 # First check if HTML changed
-hashObj = gHh.HTMLhasher(urls[0])
+hashObj = gHh.HTMLhasher(url[0])
 hashObj.getHash()
 base_hash = hashObj.hash
 
 # Get reference picture from website
-check.getPicture('reference\site-ref.png') # Need to load the website 2 times ---> Otherwise the cookies pose to be a problem
-base_pic = Image.open('reference\site-ref.png').convert('L')
+check.getPicture('temp\site-ref.png') # Need to load the website 2 times ---> Otherwise the cookies pose to be a problem
+base_pic = Image.open('temp\site-ref.png').convert('L')
 data_base = np.asarray(base_pic)
 base_val = np.sum(data_base)
 
@@ -36,10 +46,10 @@ while True:
     hashObj.getHash()
 
     if (hashObj.hash == base_hash): # If nothing has changed
-        print(current_time, names[0], ": Not Changed")
+        print(current_time, name[0], ": Not Changed")
 
     else: # If something has changed
-        print(current_time, names[0], ": Changed")
+        print(current_time, name[0], ": Changed")
         print("----------------")
         print("HTML CHANGED")
 

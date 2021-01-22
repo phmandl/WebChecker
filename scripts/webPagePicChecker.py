@@ -1,7 +1,7 @@
 import asyncio
 from pyppeteer import launch
 
-class urlChecker:
+class webPagePicChecker:
     def __init__(self, url, name, x = 0, y = 0, width = 1080, height = 2000):
         self.name = name
         self.url = url
