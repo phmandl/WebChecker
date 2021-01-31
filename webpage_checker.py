@@ -21,7 +21,7 @@ area = data['checkArea']
 ### IMPLEMENT PAGES
 
 # Do some House-Keeping and set-up Browser
-check = gS.webPagePicChecker(url = url[0], name = name[0], x = 0, y = 800, width = 1080, height = 600)
+check = gS.webPagePicChecker(url = url, name = name, area = area)
 check.setUpBrowser()
 
 # First check if HTML changed
@@ -30,7 +30,7 @@ hashObj.getHash()
 base_hash = hashObj.hash
 
 # Get reference picture from website
-check.getPicture('temp\site-ref.png') # Need to load the website 2 times ---> Otherwise the cookies pose to be a problem
+check.getPicture('temp') # Need to load the website 2 times ---> Otherwise the cookies pose to be a problem
 base_pic = Image.open('temp\site-ref.png').convert('L')
 data_base = np.asarray(base_pic)
 base_val = np.sum(data_base)
