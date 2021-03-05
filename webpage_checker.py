@@ -31,6 +31,8 @@ base_hash = hashObj.hash
 
 # Get reference picture from website
 check.getPicture('temp') # Need to load the website 2 times ---> Otherwise the cookies pose to be a problem
+check.getBaseVal()
+
 base_pic = Image.open('temp\site-ref.png').convert('L')
 data_base = np.asarray(base_pic)
 base_val = np.sum(data_base)
